@@ -1,6 +1,7 @@
-package autumn.config.client.refresh;
+package autumn.config.client.context.refresh;
 
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.*;
 import org.springframework.util.CollectionUtils;
 
@@ -147,6 +148,11 @@ public abstract class ContextRefresher {
                 result.put(key, parent.getProperty(key));
             }
         }
+    }
+
+    @Configuration(proxyBeanMethods = false)
+    protected static class Empty {
+
     }
 
 }
