@@ -9,7 +9,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -33,8 +32,8 @@ public class ConfigurationPropertiesBeans implements BeanPostProcessor, Applicat
         if (applicationContext.getAutowireCapableBeanFactory() instanceof ConfigurableListableBeanFactory) {
             this.beanFactory = (ConfigurableListableBeanFactory) applicationContext.getAutowireCapableBeanFactory();
         }
-        if (applicationContext.getParent() != null && applicationContext.getParent()
-                .getAutowireCapableBeanFactory() instanceof ConfigurableListableBeanFactory) {
+        if (applicationContext.getParent() != null &&
+                applicationContext.getParent().getAutowireCapableBeanFactory() instanceof ConfigurableListableBeanFactory) {
             ConfigurableListableBeanFactory listable = (ConfigurableListableBeanFactory) applicationContext.getParent()
                     .getAutowireCapableBeanFactory();
             String[] names = listable.getBeanNamesForType(ConfigurationPropertiesBeans.class);
@@ -50,7 +49,8 @@ public class ConfigurationPropertiesBeans implements BeanPostProcessor, Applicat
         if (isRefreshScoped(beanName)) {
             return bean;
         }
-        ConfigurationPropertiesBean propertiesBean = ConfigurationPropertiesBean.get(this.applicationContext, bean,
+        ConfigurationPropertiesBean propertiesBean = ConfigurationPropertiesBean.get(this.applicationContext,
+                bean,
                 beanName);
         if (propertiesBean != null) {
             this.beans.put(beanName, propertiesBean);
@@ -82,6 +82,6 @@ public class ConfigurationPropertiesBeans implements BeanPostProcessor, Applicat
     }
 
     public Set<String> getBeanNames() {
-        return new HashSet<String>(this.beans.keySet());
+        return this.beans.keySet();
     }
 }
