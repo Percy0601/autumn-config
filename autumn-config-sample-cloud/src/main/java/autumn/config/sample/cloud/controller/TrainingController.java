@@ -1,4 +1,4 @@
-package autumn.config.sample.controller;
+package autumn.config.sample.cloud.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -12,6 +12,7 @@
     <module>autumn-config-server</module>
     <module>autumn-config-starter</module>
     <module>autumn-config-sample</module>
+    <module>autumn-config-sample-cloud</module>
   </modules>
   <packaging>pom</packaging>
 
@@ -46,6 +47,7 @@
         <groupId>org.apache.thrift</groupId>
         <artifactId>libthrift</artifactId>
         <version>${libthrift.version}</version>
+        <scope>provided</scope>
         <exclusions>
           <exclusion>
             <groupId>org.slf4j</groupId>
@@ -83,6 +85,11 @@
         <version>${lombok.version}</version>
         <scope>provided</scope>
       </dependency>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-context</artifactId>
+        <version>3.1.0</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -90,7 +97,13 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter</artifactId>
-      <scope>provided</scope>
+      <optional>true</optional>
+      <exclusions>
+        <exclusion>
+          <groupId>org.yaml</groupId>
+          <artifactId>snakeyaml</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.thrift</groupId>

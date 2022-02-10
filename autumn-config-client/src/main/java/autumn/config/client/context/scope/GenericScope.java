@@ -2,8 +2,8 @@ package autumn.config.client.context.scope;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.Advised;
 import org.springframework.aop.scope.ScopedObject;
 import org.springframework.aop.scope.ScopedProxyFactoryBean;
@@ -40,7 +40,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class GenericScope
         implements Scope, BeanFactoryPostProcessor, BeanDefinitionRegistryPostProcessor, DisposableBean {
 
-    private static final Log logger = LogFactory.getLog(GenericScope.class);
+    private static final Logger logger = LoggerFactory.getLogger(GenericScope.class);
 
     private BeanLifecycleWrapperCache cache = new BeanLifecycleWrapperCache(new StandardScopeCache());
 

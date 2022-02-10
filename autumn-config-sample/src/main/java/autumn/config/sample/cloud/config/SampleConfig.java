@@ -1,4 +1,4 @@
-package autumn.config.sample.config;
+package autumn.config.sample.cloud.config;
 
 import autumn.config.client.context.scope.refresh.RefreshScope;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
