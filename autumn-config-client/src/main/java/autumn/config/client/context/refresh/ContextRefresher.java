@@ -1,5 +1,7 @@
 package autumn.config.client.context.refresh;
 
+import autumn.config.client.context.environment.EnvironmentChangeEvent;
+import autumn.config.client.context.scope.refresh.RefreshScope;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.*;
@@ -24,38 +26,38 @@ public abstract class ContextRefresher {
 
     private ConfigurableApplicationContext context;
 
-//    private RefreshScope scope;
-//
-//
-//    @SuppressWarnings("unchecked")
-//    protected ContextRefresher(ConfigurableApplicationContext context, RefreshScope scope,
-//                               RefreshAutoConfiguration.RefreshProperties properties) {
-//        this.context = context;
-//        this.scope = scope;
-//        additionalPropertySourcesToRetain = properties.getAdditionalPropertySourcesToRetain();
-//    }
-//
-//    protected ConfigurableApplicationContext getContext() {
-//        return this.context;
-//    }
-//
-//    protected RefreshScope getScope() {
-//        return this.scope;
-//    }
-//
-//    public synchronized Set<String> refresh() {
-//        Set<String> keys = refreshEnvironment();
-//        this.scope.refreshAll();
-//        return keys;
-//    }
-//
-//    public synchronized Set<String> refreshEnvironment() {
-//        Map<String, Object> before = extract(this.context.getEnvironment().getPropertySources());
-//        updateEnvironment();
-//        Set<String> keys = changes(before, extract(this.context.getEnvironment().getPropertySources())).keySet();
-//        this.context.publishEvent(new EnvironmentChangeEvent(this.context, keys));
-//        return keys;
-//    }
+    private RefreshScope scope;
+
+
+    @SuppressWarnings("unchecked")
+    protected ContextRefresher(ConfigurableApplicationContext context, RefreshScope scope,
+                               RefreshAutoConfiguration.RefreshProperties properties) {
+        this.context = context;
+        this.scope = scope;
+        additionalPropertySourcesToRetain = properties.getAdditionalPropertySourcesToRetain();
+    }
+
+    protected ConfigurableApplicationContext getContext() {
+        return this.context;
+    }
+
+    protected RefreshScope getScope() {
+        return this.scope;
+    }
+
+    public synchronized Set<String> refresh() {
+        Set<String> keys = refreshEnvironment();
+        this.scope.refreshAll();
+        return keys;
+    }
+
+    public synchronized Set<String> refreshEnvironment() {
+        Map<String, Object> before = extract(this.context.getEnvironment().getPropertySources());
+        updateEnvironment();
+        Set<String> keys = changes(before, extract(this.context.getEnvironment().getPropertySources())).keySet();
+        this.context.publishEvent(new EnvironmentChangeEvent(this.context, keys));
+        return keys;
+    }
 
     protected abstract void updateEnvironment();
 
@@ -71,7 +73,7 @@ public abstract class ContextRefresher {
             propertySourcesToRetain.addAll(additionalPropertySourcesToRetain);
         }
 
-        for (String name : propertySourcesToRetain) {
+        for (String name: propertySourcesToRetain) {
             if (input.getPropertySources().contains(name)) {
                 if (capturedPropertySources.contains(name)) {
                     capturedPropertySources.replace(name, input.getPropertySources().get(name));
@@ -115,8 +117,8 @@ public abstract class ContextRefresher {
     }
 
     private Map<String, Object> extract(MutablePropertySources propertySources) {
-        Map<String, Object> result = new HashMap<String, Object>();
-        List<PropertySource<?>> sources = new ArrayList<PropertySource<?>>();
+        Map<String, Object> result = new HashMap<>();
+        List<PropertySource<?>> sources = new ArrayList<>();
         for (PropertySource<?> source : propertySources) {
             sources.add(0, source);
         }
@@ -131,7 +133,7 @@ public abstract class ContextRefresher {
     private void extract(PropertySource<?> parent, Map<String, Object> result) {
         if (parent instanceof CompositePropertySource) {
             try {
-                List<PropertySource<?>> sources = new ArrayList<PropertySource<?>>();
+                List<PropertySource<?>> sources = new ArrayList<>();
                 for (PropertySource<?> source : ((CompositePropertySource) parent).getPropertySources()) {
                     sources.add(0, source);
                 }
@@ -142,8 +144,7 @@ public abstract class ContextRefresher {
             catch (Exception e) {
                 return;
             }
-        }
-        else if (parent instanceof EnumerablePropertySource) {
+        } else if (parent instanceof EnumerablePropertySource) {
             for (String key : ((EnumerablePropertySource<?>) parent).getPropertyNames()) {
                 result.put(key, parent.getProperty(key));
             }
