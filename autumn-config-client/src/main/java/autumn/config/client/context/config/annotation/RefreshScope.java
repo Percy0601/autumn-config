@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package autumn.config.client.annotation;
+package autumn.config.client.context.config.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

@@ -144,8 +144,7 @@ public class GenericScope
         this.locks.putIfAbsent(name, new ReentrantReadWriteLock());
         try {
             return value.getBean();
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             this.errors.put(name, e);
             throw e;
         }

@@ -1,5 +1,6 @@
 package autumn.config.client.context.refresh;
 
+import autumn.config.client.context.autoconfigure.RefreshProperties;
 import autumn.config.client.context.environment.EnvironmentChangeEvent;
 import autumn.config.client.context.scope.refresh.RefreshScope;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -10,9 +11,6 @@ import org.springframework.util.CollectionUtils;
 import java.util.*;
 
 public abstract class ContextRefresher {
-
-    protected static final String REFRESH_ARGS_PROPERTY_SOURCE = "refreshArgs";
-
     protected static final String[] DEFAULT_PROPERTY_SOURCES = new String[] {
             // order matters, if cli args aren't first, things get messy
             CommandLinePropertySource.COMMAND_LINE_PROPERTY_SOURCE_NAME, "defaultProperties" };
@@ -22,16 +20,15 @@ public abstract class ContextRefresher {
                     StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME,
                     "configurationProperties"));
 
-    protected final List<String> additionalPropertySourcesToRetain = new ArrayList<>();
+    protected List<String> additionalPropertySourcesToRetain = new ArrayList<>();
 
     private ConfigurableApplicationContext context;
 
     private RefreshScope scope;
 
-
-    @SuppressWarnings("unchecked")
-    protected ContextRefresher(ConfigurableApplicationContext context, RefreshScope scope,
-                               RefreshAutoConfiguration.RefreshProperties properties) {
+    protected ContextRefresher(ConfigurableApplicationContext context,
+                               RefreshScope scope,
+                               RefreshProperties properties) {
         this.context = context;
         this.scope = scope;
         additionalPropertySourcesToRetain = properties.getAdditionalPropertySourcesToRetain();
