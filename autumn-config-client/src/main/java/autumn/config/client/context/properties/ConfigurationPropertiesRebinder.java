@@ -5,7 +5,6 @@ import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationListener;
-import org.springframework.jmx.export.annotation.ManagedOperation;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -38,7 +37,6 @@ public class ConfigurationPropertiesRebinder implements ApplicationContextAware,
         return this.errors;
     }
 
-    @ManagedOperation
     public void rebind() {
         this.errors.clear();
         for (String name : this.beans.getBeanNames()) {
@@ -46,7 +44,6 @@ public class ConfigurationPropertiesRebinder implements ApplicationContextAware,
         }
     }
 
-    @ManagedOperation
     public boolean rebind(String name) {
         if (!this.beans.getBeanNames().contains(name)) {
             return false;

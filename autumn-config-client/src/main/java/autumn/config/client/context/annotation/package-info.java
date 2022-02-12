@@ -1,1 +1,0 @@
-package autumn.config.client.context.annotation;
