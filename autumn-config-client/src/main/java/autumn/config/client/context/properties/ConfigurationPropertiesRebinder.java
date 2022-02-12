@@ -1,7 +1,6 @@
 package autumn.config.client.context.properties;
 
 import autumn.config.client.context.environment.EnvironmentChangeEvent;
-import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
