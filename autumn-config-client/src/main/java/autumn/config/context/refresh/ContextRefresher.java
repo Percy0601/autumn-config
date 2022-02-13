@@ -1,8 +1,8 @@
-package autumn.config.client.context.refresh;
+package autumn.config.context.refresh;
 
-import autumn.config.client.context.autoconfigure.RefreshProperties;
-import autumn.config.client.context.environment.EnvironmentChangeEvent;
-import autumn.config.client.context.scope.refresh.RefreshScope;
+import autumn.config.context.autoconfigure.RefreshProperties;
+import autumn.config.context.environment.EnvironmentChangeEvent;
+import autumn.config.context.scope.refresh.RefreshScope;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.*;

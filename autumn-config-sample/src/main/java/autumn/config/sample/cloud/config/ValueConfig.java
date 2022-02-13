@@ -1,6 +1,6 @@
 package autumn.config.sample.cloud.config;
 
-import autumn.config.client.context.config.annotation.RefreshScope;
+import autumn.config.context.config.annotation.RefreshScope;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

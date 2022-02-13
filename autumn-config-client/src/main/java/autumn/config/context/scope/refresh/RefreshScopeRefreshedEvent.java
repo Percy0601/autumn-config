@@ -1,4 +1,4 @@
-package autumn.config.client.context.scope.refresh;
+package autumn.config.context.scope.refresh;
 
 import org.springframework.context.ApplicationEvent;
 

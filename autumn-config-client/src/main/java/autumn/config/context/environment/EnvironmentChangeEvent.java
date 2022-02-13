@@ -1,4 +1,4 @@
-package autumn.config.client.context.environment;
+package autumn.config.context.environment;
 
 import org.springframework.context.ApplicationEvent;
 

@@ -1,6 +1,6 @@
 package autumn.config.sample.cloud.controller;
 
-import autumn.config.client.context.refresh.ContextRefresher;
+import autumn.config.context.refresh.ContextRefresher;
 import autumn.config.sample.cloud.config.BizConfig;
 import autumn.config.sample.cloud.config.ValueConfig;
 import org.springframework.beans.factory.annotation.Autowired;

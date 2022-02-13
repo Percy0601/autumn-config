@@ -1,7 +1,7 @@
-package autumn.config.client.context.refresh;
+package autumn.config.context.refresh;
 
-import autumn.config.client.context.autoconfigure.RefreshProperties;
-import autumn.config.client.context.scope.refresh.RefreshScope;
+import autumn.config.context.autoconfigure.RefreshProperties;
+import autumn.config.context.scope.refresh.RefreshScope;
 import org.springframework.boot.Banner;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;

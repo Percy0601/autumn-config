@@ -1,4 +1,4 @@
-package autumn.config.client.context.autoconfigure;
+package autumn.config.context.autoconfigure;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.style.ToStringCreator;

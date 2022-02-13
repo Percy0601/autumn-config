@@ -1,4 +1,4 @@
-package autumn.config.client.context.scope;
+package autumn.config.context.scope;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;

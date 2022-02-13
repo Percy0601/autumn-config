@@ -1,6 +1,6 @@
-package autumn.config.client.context.scope.refresh;
+package autumn.config.context.scope.refresh;
 
-import autumn.config.client.context.scope.GenericScope;
+import autumn.config.context.scope.GenericScope;
 import org.springframework.aop.scope.ScopedProxyUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanDefinition;

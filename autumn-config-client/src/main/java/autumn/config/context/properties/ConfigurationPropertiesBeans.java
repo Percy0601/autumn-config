@@ -1,6 +1,6 @@
-package autumn.config.client.context.properties;
+package autumn.config.context.properties;
 
-import autumn.config.client.context.scope.refresh.RefreshScope;
+import autumn.config.context.scope.refresh.RefreshScope;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
