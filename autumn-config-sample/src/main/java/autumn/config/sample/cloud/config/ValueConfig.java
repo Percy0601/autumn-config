@@ -1,8 +1,8 @@
 package autumn.config.sample.cloud.config;
 
+import autumn.config.client.context.config.annotation.RefreshScope;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 @Data
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 public class ValueConfig {
     @Value("${rest.uuid}")
     private String uuid;
+
     @Value("${rest.uuid1}")
     private String uuid1;
 
@@ -70,4 +71,6 @@ public class ValueConfig {
 
     @Value("${rest.uuid20}")
     private String uuid20;
+
+
 }

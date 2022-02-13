@@ -52,8 +52,6 @@ public class GenericScope
 
     private String id;
 
-    private Map<String, Exception> errors = new ConcurrentHashMap<>();
-
     private ConcurrentMap<String, ReadWriteLock> locks = new ConcurrentHashMap<>();
 
     static RuntimeException wrapIfNecessary(Throwable throwable) {
@@ -83,17 +81,9 @@ public class GenericScope
         this.cache = new BeanLifecycleWrapperCache(cache);
     }
 
-    /**
-     * A map of bean name to errors when instantiating the bean.
-     * @return The errors accumulated since the latest destroy.
-     */
-    public Map<String, Exception> getErrors() {
-        return this.errors;
-    }
-
     @Override
     public void destroy() {
-        List<Throwable> errors = new ArrayList<Throwable>();
+        List<Throwable> errors = new ArrayList<>();
         Collection<BeanLifecycleWrapper> wrappers = this.cache.clear();
         for (BeanLifecycleWrapper wrapper : wrappers) {
             try {
@@ -113,7 +103,6 @@ public class GenericScope
         if (!errors.isEmpty()) {
             throw wrapIfNecessary(errors.get(0));
         }
-        this.errors.clear();
     }
 
     /**
@@ -132,7 +121,6 @@ public class GenericScope
             finally {
                 lock.unlock();
             }
-            this.errors.remove(name);
             return true;
         }
         return false;
@@ -145,7 +133,6 @@ public class GenericScope
         try {
             return value.getBean();
         } catch (RuntimeException e) {
-            this.errors.put(name, e);
             throw e;
         }
     }

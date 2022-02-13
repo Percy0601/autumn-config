@@ -29,4 +29,14 @@ public class SpringCloudRefreshController {
         return show();
     }
 
+    @GetMapping("/refreshMillion")
+    public String refreshMillion() {
+
+        for(int i = 0; i < 10000; i++) {
+            contextRefresher.refresh();
+        }
+
+        return valueConfig.toString();
+    }
+
 }

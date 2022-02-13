@@ -26,6 +26,23 @@ public class LegacyContextRefresher extends ContextRefresher {
         SpringApplicationBuilder builder = new SpringApplicationBuilder(Empty.class).bannerMode(Banner.Mode.OFF)
                 .web(WebApplicationType.NONE).environment(environment);
         ConfigurableApplicationContext capture = builder.run();
+
+        ConfigurableApplicationContext closeable = capture;
+        while (closeable != null) {
+            try {
+                closeable.close();
+            }
+            catch (Exception e) {
+                // Ignore;
+            }
+            if (closeable.getParent() instanceof ConfigurableApplicationContext) {
+                closeable = (ConfigurableApplicationContext) closeable.getParent();
+            }
+            else {
+                break;
+            }
+        }
+
         return capture;
     }
 }
