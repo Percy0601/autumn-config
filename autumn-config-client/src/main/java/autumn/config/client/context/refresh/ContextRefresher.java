@@ -86,7 +86,7 @@ public abstract class ContextRefresher {
     }
 
     private Map<String, Object> changes(Map<String, Object> before, Map<String, Object> after) {
-        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<>();
         for (String key : before.keySet()) {
             if (!after.containsKey(key)) {
                 result.put(key, null);

@@ -7,9 +7,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationListener;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class ConfigurationPropertiesRebinder implements ApplicationContextAware,
         ApplicationListener<EnvironmentChangeEvent> {
@@ -17,8 +15,6 @@ public class ConfigurationPropertiesRebinder implements ApplicationContextAware,
     private ConfigurationPropertiesBeans beans;
 
     private ApplicationContext applicationContext;
-
-    private Map<String, Exception> errors = new ConcurrentHashMap<>();
 
     public ConfigurationPropertiesRebinder(ConfigurationPropertiesBeans beans) {
         this.beans = beans;
@@ -29,16 +25,7 @@ public class ConfigurationPropertiesRebinder implements ApplicationContextAware,
         this.applicationContext = applicationContext;
     }
 
-    /**
-     * A map of bean name to errors when instantiating the bean.
-     * @return The errors accumulated since the latest destroy.
-     */
-    public Map<String, Exception> getErrors() {
-        return this.errors;
-    }
-
     public void rebind() {
-        this.errors.clear();
         for (String name : this.beans.getBeanNames()) {
             rebind(name);
         }
@@ -57,10 +44,8 @@ public class ConfigurationPropertiesRebinder implements ApplicationContextAware,
                     return true;
                 }
             } catch (RuntimeException e) {
-                this.errors.put(name, e);
                 throw e;
             } catch (Exception e) {
-                this.errors.put(name, e);
                 throw new IllegalStateException("Cannot rebind to " + name, e);
             }
         }
