@@ -18,8 +18,6 @@ public class RefreshScope extends GenericScope
 
     private BeanDefinitionRegistry registry;
 
-    private boolean eager = true;
-
     private int order = Ordered.LOWEST_PRECEDENCE - 100;
 
     /**
@@ -38,15 +36,6 @@ public class RefreshScope extends GenericScope
         this.order = order;
     }
 
-    /**
-     * Flag to determine whether all beans in refresh scope should be instantiated eagerly
-     * on startup. Default true.
-     * @param eager The flag to set.
-     */
-    public void setEager(boolean eager) {
-        this.eager = eager;
-    }
-
     @Override
     public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
         this.registry = registry;
@@ -59,7 +48,7 @@ public class RefreshScope extends GenericScope
     }
 
     public void start(ContextRefreshedEvent event) {
-        if (event.getApplicationContext() == this.context && this.eager && this.registry != null) {
+        if (event.getApplicationContext() == this.context && this.registry != null) {
             eagerlyInitialize();
         }
     }
