@@ -23,8 +23,10 @@ public class LegacyContextRefresher extends ContextRefresher {
 
     ConfigurableApplicationContext addConfigFilesToEnvironment() {
         StandardEnvironment environment = copyEnvironment(getContext().getEnvironment());
-        SpringApplicationBuilder builder = new SpringApplicationBuilder(Empty.class).bannerMode(Banner.Mode.OFF)
-                .web(WebApplicationType.NONE).environment(environment);
+        SpringApplicationBuilder builder = new SpringApplicationBuilder(Empty.class)
+                .bannerMode(Banner.Mode.OFF)
+                .web(WebApplicationType.NONE)
+                .environment(environment);
         ConfigurableApplicationContext capture = builder.run();
 
         ConfigurableApplicationContext closeable = capture;

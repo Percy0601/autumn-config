@@ -25,11 +25,6 @@ import java.util.stream.Collectors;
 // TODO: 4.0.0 move to org.springframework.cloud.commons.config
 public abstract class ConfigDataMissingEnvironmentPostProcessor implements EnvironmentPostProcessor, Ordered {
 
-    /**
-     * Spring config import property name.
-     */
-    public static final String CONFIG_IMPORT_PROPERTY = "spring.config.import";
-
     private static final Bindable<String[]> CONFIG_DATA_LOCATION_ARRAY = Bindable.of(String[].class);
 
     /**
@@ -65,46 +60,13 @@ public abstract class ConfigDataMissingEnvironmentPostProcessor implements Envir
 
     private List<Object> getConfigImports(ConfigurableEnvironment environment) {
         MutablePropertySources propertySources = environment.getPropertySources();
-        List<Object> property = propertySources.stream().filter(this::propertySourceWithConfigImport)
-                .flatMap(propertySource -> {
-                    List<Object> configImports = new ArrayList<>();
-                    if (propertySource.getProperty(CONFIG_IMPORT_PROPERTY) != null) {
-                        configImports.add(propertySource.getProperty(CONFIG_IMPORT_PROPERTY));
-                    }
-                    else {
-                        configImports.addAll(Arrays.asList(getConfigImportArray(propertySource)));
-                    }
-                    return configImports.stream();
-                }).collect(Collectors.toList());
-        return property;
+
+        return new ArrayList<>();
     }
 
-    private boolean propertySourceWithConfigImport(PropertySource propertySource) {
-        if (CompositePropertySource.class.isInstance(propertySource)) {
-            return ((CompositePropertySource) propertySource).getPropertySources().stream()
-                    .anyMatch(this::propertySourceWithConfigImport);
-        }
-        return propertySource.containsProperty(CONFIG_IMPORT_PROPERTY)
-                || getConfigImportArray(propertySource).length > 0;
-    }
 
-    private String[] getConfigImportArray(PropertySource propertySource) {
-        Binder binder = new Binder(ConfigurationPropertySource.from(propertySource));
-        return binder.bind(CONFIG_IMPORT_PROPERTY, CONFIG_DATA_LOCATION_ARRAY, new BindHandler() {
-            @Override
-            public Object onFailure(ConfigurationPropertyName name, Bindable<?> target, BindContext context,
-                                    Exception error) throws Exception {
-                LOG.info("Error binding " + CONFIG_IMPORT_PROPERTY, error);
-                return new String[0];
-            }
-        }).orElse(new String[0]);
-    }
 
     public static class ImportException extends RuntimeException {
-
-        /**
-         * Indicates if prefix is missing.
-         */
         public final boolean missingPrefix;
 
         ImportException(String message, boolean missingPrefix) {
