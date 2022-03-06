@@ -1,8 +1,0 @@
-# Environment PostProcessor
-org.springframework.boot.env.EnvironmentPostProcessor=\
-autumn.config.client.ConfigServerConfigDataMissingEnvironmentPostProcessor
-
-org.springframework.cloud.bootstrap.BootstrapConfiguration=\
-org.springframework.cloud.bootstrap.config.PropertySourceBootstrapConfiguration,\
-org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration
-
