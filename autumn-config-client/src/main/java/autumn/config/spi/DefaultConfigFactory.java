@@ -4,8 +4,7 @@ import autumn.config.Config;
 import autumn.config.ConfigFile;
 import autumn.config.build.ApplicationContextAwareUtil;
 import autumn.config.core.enums.ConfigFileFormat;
-import autumn.config.internals.ConfigRepository;
-import autumn.config.internals.DefaultConfig;
+import autumn.config.internals.*;
 import autumn.config.util.ConfigUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -72,10 +71,6 @@ public class DefaultConfigFactory implements ConfigFactory {
                 return new XmlConfigFile(namespace, configRepository);
             case JSON:
                 return new JsonConfigFile(namespace, configRepository);
-            case YAML:
-                return new YamlConfigFile(namespace, configRepository);
-            case YML:
-                return new YmlConfigFile(namespace, configRepository);
             case TXT:
                 return new TxtConfigFile(namespace, configRepository);
         }

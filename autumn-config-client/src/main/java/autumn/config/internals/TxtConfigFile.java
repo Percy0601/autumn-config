@@ -14,26 +14,18 @@
  * limitations under the License.
  *
  */
-package autumn.config.core;
+package autumn.config.internals;
 
-/**
- * @author vdisk <vdisk@foxmail.com>
- */
-public class ApolloClientSystemConsts {
+import autumn.config.core.enums.ConfigFileFormat;
 
-  /**
-   * enable property order
-   */
-  public static final String APOLLO_PROPERTY_ORDER_ENABLE = "autumn.property.order.enable";
+public class TxtConfigFile extends PlainTextConfigFile {
 
-  /**
-   * local cache directory
-   */
-  public static final String APOLLO_CACHE_DIR = "autumn.cache-dir";
+  public TxtConfigFile(String namespace, ConfigRepository configRepository) {
+    super(namespace, configRepository);
+  }
 
-  /**
-   * local cache directory environment variables
-   */
-  public static final String APOLLO_CACHE_DIR_ENVIRONMENT_VARIABLES = "APOLLO_CACHE_DIR";
-
+  @Override
+  public ConfigFileFormat getConfigFileFormat() {
+    return ConfigFileFormat.TXT;
+  }
 }

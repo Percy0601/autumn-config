@@ -14,26 +14,21 @@
  * limitations under the License.
  *
  */
-package autumn.config.core;
+package autumn.config;
+
+import java.util.Properties;
 
 /**
- * @author vdisk <vdisk@foxmail.com>
+ * Config files that are properties compatible, e.g. yaml
+ *
+ * @since 1.3.0
  */
-public class ApolloClientSystemConsts {
+public interface PropertiesCompatibleConfigFile extends ConfigFile {
 
   /**
-   * enable property order
+   * @return the properties form of the config file
+   *
+   * @throws RuntimeException if the content could not be transformed to properties
    */
-  public static final String APOLLO_PROPERTY_ORDER_ENABLE = "autumn.property.order.enable";
-
-  /**
-   * local cache directory
-   */
-  public static final String APOLLO_CACHE_DIR = "autumn.cache-dir";
-
-  /**
-   * local cache directory environment variables
-   */
-  public static final String APOLLO_CACHE_DIR_ENVIRONMENT_VARIABLES = "APOLLO_CACHE_DIR";
-
+  Properties asProperties();
 }

@@ -1,5 +1,6 @@
 package autumn.config.internals;
 
+import autumn.config.core.utils.ClassLoaderUtil;
 import autumn.config.enums.ConfigSourceType;
 import autumn.config.enums.PropertyChangeType;
 import autumn.config.model.ConfigChange;
@@ -155,8 +156,7 @@ public class DefaultConfig extends AbstractConfig implements RepositoryChangeLis
         if (fromAdditional == null || fromAdditional.isEmpty()) {
             return fromRepository;
         }
-        Set<String> propertyNames = Sets
-                .newLinkedHashSetWithExpectedSize(fromRepository.size() + fromAdditional.size());
+        Set<String> propertyNames = new LinkedHashSet<>(fromRepository.size() + fromAdditional.size());
         propertyNames.addAll(fromRepository);
         propertyNames.addAll(fromAdditional);
         return propertyNames;

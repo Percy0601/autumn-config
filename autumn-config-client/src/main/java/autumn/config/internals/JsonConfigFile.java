@@ -14,26 +14,21 @@
  * limitations under the License.
  *
  */
-package autumn.config.core;
+package autumn.config.internals;
+
+import autumn.config.core.enums.ConfigFileFormat;
 
 /**
- * @author vdisk <vdisk@foxmail.com>
+ * @author Jason Song(song_s@ctrip.com)
  */
-public class ApolloClientSystemConsts {
+public class JsonConfigFile extends PlainTextConfigFile {
+  public JsonConfigFile(String namespace,
+                        ConfigRepository configRepository) {
+    super(namespace, configRepository);
+  }
 
-  /**
-   * enable property order
-   */
-  public static final String APOLLO_PROPERTY_ORDER_ENABLE = "autumn.property.order.enable";
-
-  /**
-   * local cache directory
-   */
-  public static final String APOLLO_CACHE_DIR = "autumn.cache-dir";
-
-  /**
-   * local cache directory environment variables
-   */
-  public static final String APOLLO_CACHE_DIR_ENVIRONMENT_VARIABLES = "APOLLO_CACHE_DIR";
-
+  @Override
+  public ConfigFileFormat getConfigFileFormat() {
+    return ConfigFileFormat.JSON;
+  }
 }

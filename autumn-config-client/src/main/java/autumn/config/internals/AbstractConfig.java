@@ -282,7 +282,7 @@ public class AbstractConfig implements Config {
         Set<String> newKeys = Sets.difference(currentKeys, commonKeys);
         Set<String> removedKeys = Sets.difference(previousKeys, commonKeys);
 
-        List<ConfigChange> changes = Lists.newArrayList();
+        List<ConfigChange> changes = new ArrayList<>();
 
         for (String newKey : newKeys) {
             changes.add(new ConfigChange(namespace, newKey, null, current.getProperty(newKey),

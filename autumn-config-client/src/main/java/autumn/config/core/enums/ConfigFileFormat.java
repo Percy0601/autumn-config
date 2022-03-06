@@ -70,7 +70,7 @@ public enum ConfigFileFormat {
    * @return the cleansed configFileName
    */
   private static String getWellFormedName(String configFileName) {
-    if (!StringUtils.hasText(configFileName)) {
+    if (!StringUtils.hasLength(configFileName)) {
       return "";
     }
     return configFileName.trim().toLowerCase();
@@ -85,7 +85,7 @@ public enum ConfigFileFormat {
    *                                  matching {@link ConfigFileFormat}
    */
   public static ConfigFileFormat fromString(String value) {
-    if (!StringUtils.hasText(value)) {
+    if (!StringUtils.hasLength(value)) {
       throw new IllegalArgumentException("value can not be empty");
     }
 
