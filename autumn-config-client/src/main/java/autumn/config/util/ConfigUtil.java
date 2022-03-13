@@ -1,9 +1,10 @@
 package autumn.config.util;
 
-import autumn.config.core.ApolloClientSystemConsts;
+import autumn.config.core.AutumnClientSystemConsts;
 import autumn.config.core.ConfigConsts;
 import autumn.config.core.enums.Env;
 import autumn.config.core.enums.EnvUtils;
+import autumn.config.foundation.Foundation;
 import org.springframework.util.StringUtils;
 
 import java.io.File;
@@ -46,10 +47,10 @@ public class ConfigUtil {
 
     private String getCustomizedCacheRoot() {
         // 1. Get from System Property
-        String cacheRoot = System.getProperty(ApolloClientSystemConsts.AUTUMN_CACHE_DIR);
+        String cacheRoot = System.getProperty(AutumnClientSystemConsts.AUTUMN_CACHE_DIR);
         if (StringUtils.hasLength(cacheRoot)) {
             // 2. Get from OS environment variable
-            cacheRoot = System.getenv(ApolloClientSystemConsts.AUTUMN_CACHE_DIR_ENVIRONMENT_VARIABLES);
+            cacheRoot = System.getenv(AutumnClientSystemConsts.AUTUMN_CACHE_DIR_ENVIRONMENT_VARIABLES);
         }
 
         return cacheRoot;

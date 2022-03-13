@@ -14,26 +14,27 @@
  * limitations under the License.
  *
  */
-package autumn.config.core;
+package autumn.config.foundation.internals;
 
-/**
- * @author vdisk <vdisk@foxmail.com>
- */
-public class ApolloClientSystemConsts {
 
-  /**
-   * enable property order
-   */
-  public static final String AUTUMN_PROPERTY_ORDER_ENABLE = "autumn.property.order.enable";
+import autumn.config.foundation.internals.provider.NullProvider;
+import autumn.config.foundation.spi.ProviderManager;
 
-  /**
-   * local cache directory
-   */
-  public static final String AUTUMN_CACHE_DIR = "autumn.cache-dir";
+public class NullProviderManager implements ProviderManager {
+  public static final NullProvider provider = new NullProvider();
 
-  /**
-   * local cache directory environment variables
-   */
-  public static final String AUTUMN_CACHE_DIR_ENVIRONMENT_VARIABLES = "AUTUMN_CACHE_DIR";
+  @Override
+  public String getProperty(String name, String defaultValue) {
+    return defaultValue;
+  }
 
+  @Override
+  public NullProvider provider(Class clazz) {
+    return provider;
+  }
+
+  @Override
+  public String toString() {
+    return provider.toString();
+  }
 }

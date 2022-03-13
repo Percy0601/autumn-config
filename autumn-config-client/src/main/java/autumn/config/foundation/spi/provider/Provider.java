@@ -14,32 +14,25 @@
  * limitations under the License.
  *
  */
-package autumn.config.util.factory;
+package autumn.config.foundation.spi.provider;
 
-
-import autumn.config.core.AutumnClientSystemConsts;
-
-import java.util.Properties;
-
-/**
- * Factory interface to construct Properties instances.
- *
- * @author songdragon@zts.io
- */
-public interface PropertiesFactory {
-
+public interface Provider {
   /**
-   * Configuration to keep properties order as same as line order in .yml/.yaml/.properties file.
+   * @return the current provider's type
    */
-  String APOLLO_PROPERTY_ORDER_ENABLE = AutumnClientSystemConsts.AUTUMN_PROPERTY_ORDER_ENABLE;
+  Class<? extends Provider> getType();
 
   /**
-   * <pre>
-   * Default implementation:
-   * 2. else return a new instance of {@link Properties}
-   * </pre>
+   * Return the property value with the given name, or {@code defaultValue} if the name doesn't exist.
    *
-   * @return
+   * @param name the property name
+   * @param defaultValue the default value when name is not found or any error occurred
+   * @return the property value
    */
-  Properties getPropertiesInstance();
+  String getProperty(String name, String defaultValue);
+
+  /**
+   * Initialize the provider
+   */
+  void initialize();
 }

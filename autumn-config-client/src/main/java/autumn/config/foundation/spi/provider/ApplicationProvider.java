@@ -14,32 +14,36 @@
  * limitations under the License.
  *
  */
-package autumn.config.util.factory;
+package autumn.config.foundation.spi.provider;
 
-
-import autumn.config.core.AutumnClientSystemConsts;
-
-import java.util.Properties;
+import java.io.InputStream;
 
 /**
- * Factory interface to construct Properties instances.
- *
- * @author songdragon@zts.io
+ * Provider for application related properties
  */
-public interface PropertiesFactory {
+public interface ApplicationProvider extends Provider {
+  /**
+   * @return the application's app id
+   */
+  String getAppId();
 
   /**
-   * Configuration to keep properties order as same as line order in .yml/.yaml/.properties file.
+   * @return the application's app label
    */
-  String APOLLO_PROPERTY_ORDER_ENABLE = AutumnClientSystemConsts.AUTUMN_PROPERTY_ORDER_ENABLE;
+  String getApolloLabel();
 
   /**
-   * <pre>
-   * Default implementation:
-   * 2. else return a new instance of {@link Properties}
-   * </pre>
-   *
-   * @return
+   * @return the application's access key secret
    */
-  Properties getPropertiesInstance();
+  String getAccessKeySecret();
+
+  /**
+   * @return whether the application's app id is set or not
+   */
+  boolean isAppIdSet();
+
+  /**
+   * Initialize the application provider with the specified input stream
+   */
+  void initialize(InputStream in);
 }
