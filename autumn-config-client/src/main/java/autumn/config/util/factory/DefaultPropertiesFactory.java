@@ -16,10 +16,9 @@
  */
 package autumn.config.util.factory;
 
-import autumn.config.build.ApplicationContextAwareUtil;
+import autumn.config.build.AutumnInjector;
 import autumn.config.util.ConfigUtil;
 import autumn.config.util.OrderedProperties;
-
 
 import java.util.Properties;
 
@@ -33,7 +32,7 @@ public class DefaultPropertiesFactory implements PropertiesFactory {
   private ConfigUtil m_configUtil;
 
   public DefaultPropertiesFactory() {
-    m_configUtil = ApplicationContextAwareUtil.getBean(ConfigUtil.class);
+    m_configUtil = AutumnInjector.getInstance(ConfigUtil.class);
   }
 
   @Override

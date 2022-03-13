@@ -3,6 +3,7 @@ package autumn.config.spi;
 import autumn.config.Config;
 import autumn.config.ConfigFile;
 import autumn.config.build.ApplicationContextAwareUtil;
+import autumn.config.build.AutumnInjector;
 import autumn.config.core.enums.ConfigFileFormat;
 import autumn.config.internals.*;
 import autumn.config.util.ConfigUtil;
@@ -31,7 +32,7 @@ public class DefaultConfigFactory implements ConfigFactory {
     private final ConfigUtil m_configUtil;
 
     public DefaultConfigFactory() {
-        m_configUtil = ApplicationContextAwareUtil.getBean(ConfigUtil.class);
+        m_configUtil = AutumnInjector.getInstance(ConfigUtil.class);
     }
 
     @Override

@@ -44,10 +44,10 @@ public class ConfigUtil {
 
     private String getCustomizedCacheRoot() {
         // 1. Get from System Property
-        String cacheRoot = System.getProperty(ApolloClientSystemConsts.APOLLO_CACHE_DIR);
+        String cacheRoot = System.getProperty(ApolloClientSystemConsts.AUTUMN_CACHE_DIR);
         if (StringUtils.hasLength(cacheRoot)) {
             // 2. Get from OS environment variable
-            cacheRoot = System.getenv(ApolloClientSystemConsts.APOLLO_CACHE_DIR_ENVIRONMENT_VARIABLES);
+            cacheRoot = System.getenv(ApolloClientSystemConsts.AUTUMN_CACHE_DIR_ENVIRONMENT_VARIABLES);
         }
 
         return cacheRoot;

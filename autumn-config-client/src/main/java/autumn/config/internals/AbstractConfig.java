@@ -2,12 +2,13 @@ package autumn.config.internals;
 
 import autumn.config.Config;
 import autumn.config.ConfigChangeListener;
-import autumn.config.build.ApplicationContextAwareUtil;
+import autumn.config.build.AutumnInjector;
 import autumn.config.core.utils.AutumnThreadFactory;
 import autumn.config.enums.PropertyChangeType;
 import autumn.config.model.ConfigChange;
 import autumn.config.model.ConfigChangeEvent;
 import autumn.config.util.ConfigUtil;
+import autumn.config.util.SetUtil;
 import autumn.config.util.factory.PropertiesFactory;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,7 +17,7 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 @Slf4j
-public class AbstractConfig implements Config {
+public abstract class AbstractConfig implements Config {
 
     private static final ExecutorService m_executorService;
 
@@ -35,9 +36,9 @@ public class AbstractConfig implements Config {
     }
 
     public AbstractConfig() {
-        m_configUtil = ApplicationContextAwareUtil.getBean(ConfigUtil.class);
+        m_configUtil = AutumnInjector.getInstance(ConfigUtil.class);
         m_configVersion = new AtomicLong();
-        propertiesFactory = ApplicationContextAwareUtil.getBean(PropertiesFactory.class);
+        propertiesFactory = AutumnInjector.getInstance(PropertiesFactory.class);
     }
 
     @Override
@@ -200,13 +201,11 @@ public class AbstractConfig implements Config {
     }
 
     private void notifyAsync(final ConfigChangeListener listener, final ConfigChangeEvent changeEvent) {
-        m_executorService.submit(new Runnable() {
-            @Override
-            public void run() {
-                String listenerName = listener.getClass().getName();
-                listener.onChange(changeEvent);
-            }
-        });
+        Runnable runnable = () -> {
+            // String listenerName = listener.getClass().getName();
+            listener.onChange(changeEvent);
+        };
+        m_executorService.submit(runnable);
     }
 
     private boolean isConfigChangeListenerInterested(ConfigChangeListener configChangeListener, Set<String> changedKeys) {
@@ -278,9 +277,9 @@ public class AbstractConfig implements Config {
         Set<String> previousKeys = previous.stringPropertyNames();
         Set<String> currentKeys = current.stringPropertyNames();
 
-        Set<String> commonKeys = Sets.intersection(previousKeys, currentKeys);
-        Set<String> newKeys = Sets.difference(currentKeys, commonKeys);
-        Set<String> removedKeys = Sets.difference(previousKeys, commonKeys);
+        Set<String> commonKeys = SetUtil.intersection(previousKeys, currentKeys);
+        Set<String> newKeys = SetUtil.difference(currentKeys, commonKeys);
+        Set<String> removedKeys = SetUtil.difference(previousKeys, commonKeys);
 
         List<ConfigChange> changes = new ArrayList<>();
 

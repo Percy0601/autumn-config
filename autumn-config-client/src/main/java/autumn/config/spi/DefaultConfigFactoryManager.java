@@ -1,6 +1,6 @@
 package autumn.config.spi;
 
-import autumn.config.build.ApplicationContextAwareUtil;
+import autumn.config.build.AutumnInjector;
 import autumn.config.internals.ConfigFactoryManager;
 
 import java.util.Map;
@@ -12,7 +12,7 @@ public class DefaultConfigFactoryManager implements ConfigFactoryManager {
     private Map<String, ConfigFactory> m_factories = new ConcurrentHashMap<>();
 
     public DefaultConfigFactoryManager() {
-        m_registry = ApplicationContextAwareUtil.getBean(ConfigRegistry.class);
+        m_registry = AutumnInjector.getInstance(ConfigRegistry.class);
     }
 
     @Override
@@ -32,14 +32,14 @@ public class DefaultConfigFactoryManager implements ConfigFactoryManager {
         }
 
         // step 3: check declared config factory
-        factory = ApplicationContextAwareUtil.getBean(ConfigFactory.class);
+        factory = AutumnInjector.getInstance(ConfigFactory.class);
 
         if (factory != null) {
             return factory;
         }
 
         // step 4: check default config factory
-        factory = ApplicationContextAwareUtil.getBean(ConfigFactory.class);
+        factory = AutumnInjector.getInstance(ConfigFactory.class);
 
         m_factories.put(namespace, factory);
 

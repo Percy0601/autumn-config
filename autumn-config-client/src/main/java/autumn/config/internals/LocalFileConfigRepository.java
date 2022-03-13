@@ -16,13 +16,11 @@
  */
 package autumn.config.internals;
 
-import autumn.config.build.ApplicationContextAwareUtil;
+import autumn.config.build.AutumnInjector;
 import autumn.config.core.ConfigConsts;
 import autumn.config.core.utils.ClassLoaderUtil;
 import autumn.config.enums.ConfigSourceType;
 import autumn.config.util.ConfigUtil;
-
-import ch.qos.logback.core.spi.ContextAware;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,7 +56,7 @@ public class LocalFileConfigRepository extends AbstractConfigRepository
 
   public LocalFileConfigRepository(String namespace, ConfigRepository upstream) {
     m_namespace = namespace;
-    m_configUtil = ApplicationContextAwareUtil.getBean(ConfigUtil.class);
+    m_configUtil = AutumnInjector.getInstance(ConfigUtil.class);
     this.setLocalCacheDir(findLocalCacheDir(), false);
     this.setUpstreamRepository(upstream);
     this.trySync();

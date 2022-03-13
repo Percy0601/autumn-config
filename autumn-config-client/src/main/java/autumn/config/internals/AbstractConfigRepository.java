@@ -16,7 +16,7 @@
  */
 package autumn.config.internals;
 
-import autumn.config.build.ApplicationContextAwareUtil;
+import autumn.config.build.AutumnInjector;
 import autumn.config.util.factory.PropertiesFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +30,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public abstract class AbstractConfigRepository implements ConfigRepository {
   private static final Logger logger = LoggerFactory.getLogger(AbstractConfigRepository.class);
   private ConcurrentLinkedQueue<RepositoryChangeListener> m_listeners = new ConcurrentLinkedQueue<>();
-  protected PropertiesFactory propertiesFactory = ApplicationContextAwareUtil.getBean(PropertiesFactory.class);
+  protected PropertiesFactory propertiesFactory = AutumnInjector.getInstance(PropertiesFactory.class);
 
   protected boolean trySync() {
     try {

@@ -2,7 +2,7 @@ package autumn.config.internals;
 
 import autumn.config.Config;
 import autumn.config.ConfigFile;
-import autumn.config.build.ApplicationContextAwareUtil;
+import autumn.config.build.AutumnInjector;
 import autumn.config.core.enums.ConfigFileFormat;
 import autumn.config.spi.ConfigFactory;
 
@@ -16,7 +16,7 @@ public class DefaultConfigManager implements ConfigManager{
     private Map<String, ConfigFile> m_configFiles = new ConcurrentHashMap();
 
     public DefaultConfigManager() {
-        m_factoryManager = ApplicationContextAwareUtil.getBean(ConfigFactoryManager.class);
+        m_factoryManager = AutumnInjector.getInstance(ConfigFactoryManager.class);
     }
 
     @Override

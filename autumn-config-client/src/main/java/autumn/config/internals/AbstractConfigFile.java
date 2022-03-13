@@ -18,7 +18,7 @@ package autumn.config.internals;
 
 import autumn.config.ConfigFile;
 import autumn.config.ConfigFileChangeListener;
-import autumn.config.build.ApplicationContextAwareUtil;
+import autumn.config.build.AutumnInjector;
 import autumn.config.core.utils.AutumnThreadFactory;
 import autumn.config.enums.ConfigSourceType;
 import autumn.config.enums.PropertyChangeType;
@@ -56,7 +56,7 @@ public abstract class AbstractConfigFile implements ConfigFile, RepositoryChange
     m_configRepository = configRepository;
     m_namespace = namespace;
     m_configProperties = new AtomicReference<>();
-    propertiesFactory = ApplicationContextAwareUtil.getBean(PropertiesFactory.class);
+    propertiesFactory = AutumnInjector.getInstance(PropertiesFactory.class);
     initialize();
   }
 

@@ -24,16 +24,16 @@ public class ApolloClientSystemConsts {
   /**
    * enable property order
    */
-  public static final String APOLLO_PROPERTY_ORDER_ENABLE = "autumn.property.order.enable";
+  public static final String AUTUMN_PROPERTY_ORDER_ENABLE = "autumn.property.order.enable";
 
   /**
    * local cache directory
    */
-  public static final String APOLLO_CACHE_DIR = "autumn.cache-dir";
+  public static final String AUTUMN_CACHE_DIR = "autumn.cache-dir";
 
   /**
    * local cache directory environment variables
    */
-  public static final String APOLLO_CACHE_DIR_ENVIRONMENT_VARIABLES = "APOLLO_CACHE_DIR";
+  public static final String AUTUMN_CACHE_DIR_ENVIRONMENT_VARIABLES = "AUTUMN_CACHE_DIR";
 
 }
