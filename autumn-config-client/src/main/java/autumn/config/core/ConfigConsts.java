@@ -5,4 +5,5 @@ public interface ConfigConsts {
     String CONFIG_FILE_CONTENT_KEY = "content";
     String NO_APPID_PLACEHOLDER = "ApolloNoAppIdPlaceHolder";
     String CLUSTER_NAME_DEFAULT = "default";
+    String CLUSTER_NAMESPACE_SEPARATOR = "+";
 }

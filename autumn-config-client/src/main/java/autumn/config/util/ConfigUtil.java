@@ -2,6 +2,8 @@ package autumn.config.util;
 
 import autumn.config.core.ApolloClientSystemConsts;
 import autumn.config.core.ConfigConsts;
+import autumn.config.core.enums.Env;
+import autumn.config.core.enums.EnvUtils;
 import org.springframework.util.StringUtils;
 
 import java.io.File;
@@ -59,6 +61,24 @@ public class ConfigUtil {
             return false;
         }
         return osName.startsWith("Windows");
+    }
+
+    public boolean isInLocalMode() {
+        try {
+            return Env.LOCAL == getApolloEnv();
+        } catch (Throwable ex) {
+            //ignore
+        }
+        return false;
+    }
+
+    /**
+     * Get the current environment.
+     *
+     * @return the env, UNKNOWN if env is not set or invalid
+     */
+    public Env getApolloEnv() {
+        return EnvUtils.transformEnv(Foundation.server().getEnvType());
     }
 
 }

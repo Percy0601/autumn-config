@@ -2,7 +2,8 @@ package autumn.config.spi;
 
 import autumn.config.Config;
 import autumn.config.ConfigFile;
-import autumn.config.build.ApplicationContextAwareUtil;
+import autumn.config.ConfigService;
+import autumn.config.PropertiesCompatibleConfigFile;
 import autumn.config.build.AutumnInjector;
 import autumn.config.core.enums.ConfigFileFormat;
 import autumn.config.internals.*;

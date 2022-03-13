@@ -28,6 +28,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Properties;
 
 /**
@@ -246,8 +247,11 @@ public class LocalFileConfigRepository extends AbstractConfigRepository
 
   File assembleLocalCacheFile(File baseDir, String namespace) {
     String fileName =
-        String.format("%s.properties", Joiner.on(ConfigConsts.CLUSTER_NAMESPACE_SEPARATOR)
-            .join(m_configUtil.getAppId(), ConfigConsts.CLUSTER_NAME_DEFAULT, namespace));
+        String.format("%s.properties", String.join(ConfigConsts.CLUSTER_NAMESPACE_SEPARATOR,
+                Arrays.asList(m_configUtil.getAppId(), ConfigConsts.CLUSTER_NAME_DEFAULT, namespace))
+        );
+    ;
+
     return new File(baseDir, fileName);
   }
 }
