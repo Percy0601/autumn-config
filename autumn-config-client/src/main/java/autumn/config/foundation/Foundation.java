@@ -43,7 +43,6 @@ public abstract class Foundation {
         // Double locking to make sure only one thread initializes ProviderManager.
         synchronized (LOCK) {
           if (s_manager == null) {
-
             s_manager = ServiceBootstrap.loadPrimary(ProviderManager.class);
           }
         }

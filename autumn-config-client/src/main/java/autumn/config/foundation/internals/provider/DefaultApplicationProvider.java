@@ -118,7 +118,7 @@ public class DefaultApplicationProvider implements ApplicationProvider {
   private void initAppId() {
     // 1. Get app.id from System Property
     m_appId = System.getProperty(AutumnClientSystemConsts.APP_ID);
-    if (StringUtils.hasLength(m_appId)) {
+    if (StringUtils.hasText(m_appId)) {
       m_appId = m_appId.trim();
       logger.info("App ID is set to {} by app.id property from System Property", m_appId);
       return;
@@ -126,7 +126,7 @@ public class DefaultApplicationProvider implements ApplicationProvider {
 
     //2. Try to get app id from OS environment variable
     m_appId = System.getenv(AutumnClientSystemConsts.APP_ID_ENVIRONMENT_VARIABLES);
-    if (StringUtils.hasLength(m_appId)) {
+    if (StringUtils.hasText(m_appId)) {
       m_appId = m_appId.trim();
       logger.info("App ID is set to {} by APP_ID property from OS environment variable", m_appId);
       return;
@@ -134,7 +134,7 @@ public class DefaultApplicationProvider implements ApplicationProvider {
 
     // 3. Try to get app id from app.properties.
     m_appId = m_appProperties.getProperty(AutumnClientSystemConsts.APP_ID);
-    if (StringUtils.hasLength(m_appId)) {
+    if (StringUtils.hasText(m_appId)) {
       m_appId = m_appId.trim();
       logger.info("App ID is set to {} by app.id property from {}", m_appId,
           APP_PROPERTIES_CLASSPATH);

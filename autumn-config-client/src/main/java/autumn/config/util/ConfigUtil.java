@@ -23,7 +23,7 @@ public class ConfigUtil {
     public String getDefaultLocalCacheDir() {
         String cacheRoot = getCustomizedCacheRoot();
 
-        if (!StringUtils.hasLength(cacheRoot)) {
+        if (StringUtils.hasText(cacheRoot)) {
             return cacheRoot + File.separator + getAppId();
         }
 
@@ -37,8 +37,8 @@ public class ConfigUtil {
      * @return the app id or ConfigConsts.NO_APPID_PLACEHOLDER if app id is not available
      */
     public String getAppId() {
-        String appId = "";
-        if (!StringUtils.hasLength(appId)) {
+        String appId = Foundation.app().getAppId();
+        if (!StringUtils.hasText(appId)) {
             appId = ConfigConsts.NO_APPID_PLACEHOLDER;
         }
         return appId;
