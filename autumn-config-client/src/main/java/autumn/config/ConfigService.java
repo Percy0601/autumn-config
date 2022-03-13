@@ -1,6 +1,6 @@
 package autumn.config;
 
-import autumn.config.build.ApplicationContextAwareUtil;
+import autumn.config.build.AutumnInjector;
 import autumn.config.core.ConfigConsts;
 import autumn.config.core.enums.ConfigFileFormat;
 import autumn.config.internals.ConfigManager;
@@ -18,7 +18,7 @@ public class ConfigService {
         if (m_configManager == null) {
             synchronized (this) {
                 if (m_configManager == null) {
-                    m_configManager = ApplicationContextAwareUtil.getBean(ConfigManager.class);
+                    m_configManager = AutumnInjector.getInstance(ConfigManager.class);
                 }
             }
         }
@@ -30,7 +30,7 @@ public class ConfigService {
         if (m_configRegistry == null) {
             synchronized (this) {
                 if (m_configRegistry == null) {
-                    m_configRegistry = ApplicationContextAwareUtil.getBean(ConfigRegistry.class);
+                    m_configRegistry = AutumnInjector.getInstance(ConfigRegistry.class);
                 }
             }
         }

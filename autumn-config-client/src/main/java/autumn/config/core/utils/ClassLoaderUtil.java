@@ -22,6 +22,7 @@ import org.springframework.util.StringUtils;
 
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author Jason Song(song_s@ctrip.com)
@@ -43,7 +44,7 @@ public class ClassLoaderUtil {
       // get class path
       if (url != null) {
         classPath = url.getPath();
-        classPath = URLDecoder.decode(classPath, "utf-8");
+        classPath = URLDecoder.decode(classPath, StandardCharsets.UTF_8);
       }
 
       // 如果是jar包内的，则返回当前路径
@@ -63,18 +64,5 @@ public class ClassLoaderUtil {
   public static String getClassPath() {
     return classPath;
   }
-//
-//  public static boolean isClassPresent(String className) {
-//    try {
-//      Class.forName(className);
-//      return true;
-//    } catch (ClassNotFoundException ex) {
-//      // ignore expected exception
-//      return false;
-//    } catch (LinkageError ex) {
-//      // unexpected error, need to let the user know the actual error
-//      logger.error("Failed to load class: {}", className, ex);
-//      return false;
-//    }
-//  }
+
 }
