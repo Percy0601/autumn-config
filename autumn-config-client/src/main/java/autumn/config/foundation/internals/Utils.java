@@ -20,7 +20,7 @@ import org.springframework.util.StringUtils;
 
 public class Utils {
   public static boolean isBlank(String str) {
-    return !StringUtils.hasLength(str.trim());
+    return !StringUtils.hasLength(str);
   }
 
   public static boolean isOSWindows() {

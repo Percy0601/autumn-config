@@ -1,11 +1,11 @@
 package autumn.config.build;
 
+import autumn.config.foundation.internals.DefaultProviderManager;
+import autumn.config.foundation.spi.ProviderManager;
 import autumn.config.internals.ConfigFactoryManager;
 import autumn.config.internals.ConfigManager;
 import autumn.config.internals.DefaultConfigManager;
-import autumn.config.spi.ConfigRegistry;
-import autumn.config.spi.DefaultConfigFactoryManager;
-import autumn.config.spi.DefaultConfigRegistry;
+import autumn.config.spi.*;
 import autumn.config.util.ConfigUtil;
 import autumn.config.util.factory.DefaultPropertiesFactory;
 import autumn.config.util.factory.PropertiesFactory;
@@ -61,9 +61,31 @@ public class AutumnInjector {
         return makeInstance(clazz, DefaultConfigFactoryManager.class.getName());
       }
 
+      // ConfigFactory
+      if(clazz.getName().equals(ConfigFactory.class.getName())) {
+        return makeInstance(clazz, DefaultConfigFactory.class.getName());
+      }
+
+      // ProviderManager
+      if(clazz.getName().equals(ProviderManager.class.getName())) {
+        return makeInstance(clazz, DefaultProviderManager.class.getName());
+      }
     }
     List<Object> instances = _m.get(clazz);
     return (T)instances.get(0);
+  }
+
+  public static <T> List<T> getInstances(Class<T> clazz) {
+    Map<Class, List<Object>> _m = getInjector();
+    List<Object> result = _m.get(clazz);
+    if(null == result) {
+      if(clazz.getName().equals(ProviderManager.class.getName())) {
+        makeInstance(ProviderManager.class, DefaultProviderManager.class.getName());
+      }
+    }
+    result = _m.get(clazz);
+
+    return (List<T>)result;
   }
 
   public static <T> T getInstance(Class<T> clazz, String name) {
@@ -77,52 +99,69 @@ public class AutumnInjector {
 
   private static <T> T makeInstance(Class<T> clazz, String className) {
     Map<Class, List<Object>> injector = getInjector();
+    List<Object> instances = injector.get(clazz);
+    if(null == instances) {
+      instances = new ArrayList<>();
+      injector.put(clazz, instances);
+    }
+
+    Object instance = instances.stream()
+            .filter(it -> it.getClass().getName().equals(className))
+            .findAny()
+            .orElse(null);
+
+    if(null != instance) {
+      return (T)instance;
+    }
+
     // ConfigManager
-    if(clazz.getName().equals(ConfigManager.class.getName())) {
-      List<Object> instances = new ArrayList<>();
+    if(className.equals(DefaultConfigManager.class.getName())) {
       DefaultConfigManager defaultConfigManager = new DefaultConfigManager();
       instances.add(defaultConfigManager);
-      injector.put(clazz, instances);
       return (T)defaultConfigManager;
     }
 
     // ConfigRegistry
-    if(clazz.getName().equals(ConfigRegistry.class.getName())) {
-      List<Object> instances = new ArrayList<>();
+    if(className.equals(DefaultConfigRegistry.class.getName())) {
       ConfigRegistry defaultConfigRegistry = new DefaultConfigRegistry();
       instances.add(defaultConfigRegistry);
-      injector.put(clazz, instances);
       return (T)defaultConfigRegistry;
     }
 
     // ConfigUtil
-    if(clazz.getName().equals(ConfigUtil.class.getName())) {
-      List<Object> instances = new ArrayList<>();
+    if(className.equals(ConfigUtil.class.getName())) {
       ConfigUtil configUtil = new ConfigUtil();
       instances.add(configUtil);
-      injector.put(clazz, instances);
       return (T)configUtil;
     }
 
     // PropertiesFactory
-    if(clazz.getName().equals(PropertiesFactory.class.getName())) {
-      List<Object> instances = new ArrayList<>();
+    if(className.equals(DefaultPropertiesFactory.class.getName())) {
       PropertiesFactory defaultPropertiesFactory = new DefaultPropertiesFactory();
       instances.add(defaultPropertiesFactory);
-      injector.put(clazz, instances);
       return (T)defaultPropertiesFactory;
     }
 
     // ConfigFactoryManager
-    if(clazz.getName().equals(ConfigFactoryManager.class.getName())) {
-      List<Object> instances = new ArrayList<>();
+    if(className.equals(DefaultConfigFactoryManager.class.getName())) {
       ConfigFactoryManager defaultConfigFactoryManager = new DefaultConfigFactoryManager();
       instances.add(defaultConfigFactoryManager);
-      injector.put(clazz, instances);
       return (T)defaultConfigFactoryManager;
     }
 
+    // ConfigFactory
+    if(className.equals(DefaultConfigFactory.class.getName())) {
+      ConfigFactory defaultConfigFactory = new DefaultConfigFactory();
+      instances.add(defaultConfigFactory);
+      return (T)defaultConfigFactory;
+    }
 
+    // ProviderManager
+    if(className.equals(DefaultProviderManager.class.getName())) {
+      ProviderManager defaultProviderManager = new DefaultProviderManager();
+      instances.add(defaultProviderManager);
+      return (T)defaultProviderManager;
+    }
 
     return null;
   }

@@ -16,30 +16,22 @@
  */
 package autumn.config.foundation.internals;
 
+import autumn.config.build.AutumnInjector;
 import autumn.config.core.spi.Ordered;
 
 import java.util.*;
 
 public class ServiceBootstrap {
+
   public static <S> S loadFirst(Class<S> clazz) {
-    Iterator<S> iterator = loadAll(clazz);
-    if (!iterator.hasNext()) {
-      throw new IllegalStateException(String.format(
-          "No implementation defined in /META-INF/services/%s, please check whether the file exists and has the right implementation class!",
-          clazz.getName()));
-    }
-    return iterator.next();
+    S s = AutumnInjector.getInstance(clazz);
+    return s;
   }
 
-  public static <S> Iterator<S> loadAll(Class<S> clazz) {
-    ServiceLoader<S> loader = ServiceLoader.load(clazz);
-    return loader.iterator();
-  }
 
   public static <S extends Ordered> List<S> loadAllOrdered(Class<S> clazz) {
-    Iterator<S> iterator = loadAll(clazz);
-    List<S> candidates = new ArrayList<>();
-    iterator.forEachRemaining(it -> candidates.add(it));
+    List<S> candidates = AutumnInjector.getInstances(clazz);
+
     Collections.sort(candidates, new Comparator<S>() {
       @Override
       public int compare(S o1, S o2) {
