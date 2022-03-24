@@ -17,9 +17,6 @@
 package autumn.config.test;
 
 
-import autumn.config.Config;
-import autumn.config.ConfigChangeListener;
-import autumn.config.ConfigService;
 import autumn.config.model.ConfigChange;
 import autumn.config.model.ConfigChangeEvent;
 import org.slf4j.Logger;
