@@ -10,4 +10,5 @@ import org.springframework.stereotype.Component;
 public class BizConfig {
     private String key;
     private Long refresh;
+    private Long refresh2;
 }
